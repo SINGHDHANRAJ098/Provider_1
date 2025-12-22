@@ -20,7 +20,9 @@
 //   }
 //
 // }
+//
 
+//
 //
 // import 'package:flutter/foundation.dart';
 //
@@ -45,13 +47,19 @@
 // }
 
 
+
+
 import 'package:flutter/foundation.dart';
 
-class countProvider with ChangeNotifier{
+class listProvider with ChangeNotifier {
+  List<String> _students = [];
 
-  List<String> _students = ["kp","jitu","harsh","brix","code"];
+  List<String> get student => _students;
 
- List <String> get student => _students;
-
-
+  void updateName(String name) {
+    if (name.isNotEmpty) {
+      _students.add(name);
+      notifyListeners();
+    }
+  }
 }
