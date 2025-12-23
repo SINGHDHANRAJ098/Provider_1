@@ -194,8 +194,6 @@
 //
 //
 
-
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_statemanagement/provider/count_provider.dart';
@@ -234,30 +232,29 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
-          Consumer<listProvider>(
-            builder: (context, value, child) {
-              return ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 14),
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onPressed: () {
-                  value.updateName(nameController.text);
-                  nameController.clear();
-                },
-                child: Text(
-                  "Add",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              );
-            },
-          ),
-
+          // Consumer<listProvider>(
+          //   builder: (context, value, child) {
+          //     return ElevatedButton(
+          //       style: ElevatedButton.styleFrom(
+          //         backgroundColor: Colors.blue,
+          //         foregroundColor: Colors.white,
+          //         padding: EdgeInsets.symmetric(horizontal: 25, vertical: 14),
+          //         elevation: 5,
+          //         shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(10),
+          //         ),
+          //       ),
+          //       onPressed: () {
+          //         value.updateName(nameController.text);
+          //         nameController.clear();
+          //       },
+          //       child: Text(
+          //         "Add",
+          //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          //       ),
+          //     );
+          //   },
+          // ),
           SizedBox(height: 20),
 
           Expanded(
@@ -281,6 +278,30 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: Consumer<listProvider>(
+        builder: (context, value, child) {
+          return Row(
+            children: [
+              FloatingActionButton(
+                onPressed: () {
+                  value.updateName(nameController.text);
+                  nameController.clear();
+                },
+                child: Icon(Icons.add),
+              ),
+              SizedBox(width: 40),
+              FloatingActionButton(
+                onPressed: () {
+                  // value.deleteStudent(value.student.isNotEmpty);
+                  if (value.student.isNotEmpty) {
+                    value.deleteStudent(value.student.length - 1);
+                  }
+                },
+              ),
+            ],
+          );
+        },
       ),
     );
   }
