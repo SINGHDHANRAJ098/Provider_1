@@ -26,7 +26,14 @@ class TodoListScreen extends StatelessWidget {
             itemCount: provider.todos.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(provider.todos[index]),
+                title: Text(
+                  provider.todos[index],
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.orange,
+                  ),
+                ),
                 onTap: () {
                   provider.selectTask(index);
                   Navigator.pop(context);

@@ -60,61 +60,114 @@ class TodoScreen extends StatelessWidget {
           // )
         ],
       ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          FloatingActionButton(
-            heroTag: "update",
-            backgroundColor: Colors.orange,
-            onPressed: () {
-              context.read<TodoProvider>().updateTask(taskcontroller.text);
+      floatingActionButton: Consumer<TodoProvider>(
+        builder: (context, provider, child) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              FloatingActionButton(
+                heroTag: "update",
+                backgroundColor: Colors.orange,
+                onPressed: () {
+                  if (provider.selectedIndex == null) {
+                    showDialog(
+                      context: context,
+                      builder: (_) => const AlertDialog(
+                        title: Text("No Task Selected"),
+                        content: Text("Please select a task from the list."),
+                      ),
+                    );
+                    return;
+                  }
 
-              taskcontroller.clear();
-            },
-            child: Icon(Icons.edit),
-          ),
-          SizedBox(width: 10),
-          FloatingActionButton(
-            heroTag: "delete",
-            backgroundColor: Colors.orange,
-            onPressed: () {
-              final provider = context.read<TodoProvider>();
-              if (provider.selectedIndex == null) {
-                showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(title: Text("no task selected")),
-                );
-                return;
-              }
+                  provider.updateTask(
+                    context.read<TextEditingController>().text,
+                  );
+                },
+                child: const Icon(Icons.edit),
+              ),
 
-              if (!provider.canDelete()) {
-                showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    title: Text("Delete Not Allowed"),
-                    content: Text("Add at least 10 tasks before deleting."),
-                  ),
-                );
-                return;
-              }
+              const SizedBox(width: 10),
 
-              provider.deleteTask();
-            },
-            child: Icon(Icons.delete),
-          ),
-          SizedBox(width: 10),
-          FloatingActionButton(
-            heroTag: "List",
-            backgroundColor: Colors.orange,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TodoListScreen()),
-              );
-            },
-            child: Icon(Icons.list),
-          ),
-        ],
+              FloatingActionButton(
+                heroTag: "delete",
+                backgroundColor: Colors.orange,
+                onPressed: () {
+                  if (provider.selectedIndex == null) {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: Text("No Task Selected"),
+                        content: Text("Please select a task first."),
+                      ),
+                    );
+                    return;
+                  }
+
+                  if (!provider.canDelete()) {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: Text("Delete Not Allowed"),
+                        content: Text("Add at least 10 tasks before deleting."),
+                      ),
+                    );
+                    return;
+                  }
+
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text("confirm delete"),
+                      content: Text(
+                        "are you sure you want to delete this task?",
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text("cancel"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            final int deletedIndex = provider.selectedIndex!;
+                            provider.deleteTask();
+                            Navigator.pop(context);
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "Task at index $deletedIndex deleted",
+
+                                ),
+                                backgroundColor: Colors.deepPurple,
+
+                              ),
+                            );
+                          },
+                          child: Text("delete"),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                child: Icon(Icons.delete),
+              ),
+
+              SizedBox(width: 10),
+              FloatingActionButton(
+                heroTag: "list",
+                backgroundColor: Colors.orange,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => TodoListScreen()),
+                  );
+                },
+                child: Icon(Icons.list),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

@@ -3,11 +3,9 @@ import 'package:flutter/cupertino.dart';
 class TodoProvider extends ChangeNotifier {
   List<String> _todo = [];
   int? _selectedIndex;
- // String _currentText ="";
 
   List<String> get todos => _todo;
   int? get selectedIndex => _selectedIndex;
-  //String get currentText => _currentText;
 
   void addTask(String task) {
     if (task.isEmpty) return;
@@ -15,24 +13,21 @@ class TodoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
   void selectTask(int index) {
     _selectedIndex = index;
     notifyListeners();
   }
 
-  void updateTask( String newTask) {
+  void updateTask(String newTask) {
     if (_selectedIndex == null) return;
-    _todo[_selectedIndex!]= newTask;
+    _todo[_selectedIndex!] = newTask;
     notifyListeners();
-
   }
 
-  bool canDelete() => _todo.length >=10;
+  bool canDelete() => _todo.length >= 10;
 
   void deleteTask() {
-    if (_selectedIndex == null)return;
+    if (_selectedIndex == null) return;
     _todo.removeAt(_selectedIndex!);
 
     _selectedIndex = null;
