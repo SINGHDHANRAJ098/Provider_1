@@ -192,45 +192,45 @@
 //   }
 // }
 //
+
 //
-
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:provider_statemanagement/provider/count_provider.dart';
-
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
-
-  final TextEditingController nameController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        centerTitle: true,
-        title: Text(
-          "Provider List",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Enter Student name",
-              ),
-            ),
-          ),
+// import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
+// import 'package:provider_statemanagement/provider/count_provider.dart';
+//
+// class HomePage extends StatelessWidget {
+//   HomePage({super.key});
+//
+//   final TextEditingController nameController = TextEditingController();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       appBar: AppBar(
+//         backgroundColor: Colors.blue,
+//         centerTitle: true,
+//         title: Text(
+//           "Provider List",
+//           style: TextStyle(
+//             fontSize: 20,
+//             fontWeight: FontWeight.bold,
+//             color: Colors.white,
+//           ),
+//         ),
+//       ),
+//       body: Column(
+//         children: [
+//           Padding(
+//             padding: const EdgeInsets.all(12),
+//             child: TextField(
+//               controller: nameController,
+//               decoration: InputDecoration(
+//                 border: OutlineInputBorder(),
+//                 labelText: "Enter Student name",
+//               ),
+//             ),
+//           ),
 
           // Consumer<listProvider>(
           //   builder: (context, value, child) {
@@ -255,54 +255,73 @@ class HomePage extends StatelessWidget {
           //     );
           //   },
           // ),
-          SizedBox(height: 20),
-
-          Expanded(
-            child: Consumer<listProvider>(
-              builder: (context, value, child) {
-                return ListView.builder(
-                  itemCount: value.student.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(
-                        value.student[index],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: Consumer<listProvider>(
-        builder: (context, value, child) {
-          return Row(
-            children: [
-              FloatingActionButton(
-                onPressed: () {
-                  value.updateName(nameController.text);
-                  nameController.clear();
-                },
-                child: Icon(Icons.add),
-              ),
-              SizedBox(width: 40),
-              FloatingActionButton(
-                onPressed: () {
-                  // value.deleteStudent(value.student.isNotEmpty);
-                  if (value.student.isNotEmpty) {
-                    value.deleteStudent(value.student.length - 1);
-                  }
-                },
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-}
+//           SizedBox(height: 20),
+//
+//           Expanded(
+//             child: Consumer<listProvider>(
+//               builder: (context, value, child) {
+//                 return ListView.builder(
+//                   itemCount: value.student.length,
+//                   itemBuilder: (context, index) {
+//                     return ListTile(
+//                       title: Text(
+//                         value.student[index],
+//                         style: TextStyle(
+//                           fontSize: 20,
+//                           fontWeight: FontWeight.bold,
+//                         ),
+//                       ),
+//                     );
+//                   },
+//                 );
+//               },
+//             ),
+//           ),
+//         ],
+//       ),
+//       floatingActionButton: Consumer<listProvider>(
+//         builder: (context, value, child) {
+//           return Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               FloatingActionButton(
+//                 onPressed: () {
+//                   bool added = value.updateName(nameController.text);
+//                   if (added) {
+//                     nameController.clear();
+//                   } else {
+//                     ScaffoldMessenger.of(context).showSnackBar(
+//                       SnackBar(
+//                         content: Text(
+//                           value.student.length >= 10
+//                               ? "Maximum 10 students allowed"
+//                               : "Please enter a name",
+//                         ),
+//                         backgroundColor: Colors.deepOrange,
+//                         duration: Duration(seconds: 3),
+//                       ),
+//                     );
+//                   }
+//
+//                   // value.updateName(nameController.text);
+//                   // nameController.clear();
+//                 },
+//                 child: Icon(Icons.add),
+//               ),
+//               SizedBox(width: 40),
+//               FloatingActionButton(
+//                 onPressed: () {
+//                   // value.deleteStudent(value.student.isNotEmpty);
+//                   if (value.student.isNotEmpty) {
+//                     value.deleteStudent(value.student.length - 1);
+//                   }
+//                 },
+//                 child: Icon(Icons.remove),
+//               ),
+//             ],
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }

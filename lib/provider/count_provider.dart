@@ -1,3 +1,5 @@
+/// practice provider with simple program
+
 // import 'package:flutter/foundation.dart';
 //
 // class countProvider with ChangeNotifier {
@@ -22,7 +24,10 @@
 // }
 //
 
-//
+
+
+///increment and decrment in provider
+
 //
 // import 'package:flutter/foundation.dart';
 //
@@ -46,6 +51,8 @@
 //
 // }
 
+///  Add any name in the list and remove it
+
 import 'package:flutter/foundation.dart';
 
 class listProvider with ChangeNotifier {
@@ -53,13 +60,17 @@ class listProvider with ChangeNotifier {
 
   List<String> get student => _students;
 
-  void updateName(String name) {
-    if (name.isNotEmpty && _students.length < 10) {
-      _students.add(name);
-      notifyListeners();
-    }
+  bool updateName(String name) {
+    if (name.isEmpty) return true;
+
+    if (_students.length >= 10) return false;
+
+    _students.add(name);
+    notifyListeners();
+    return true;
   }
-  void deleteStudent(int index){
+
+  void deleteStudent(int index) {
     _students.removeAt(index);
     notifyListeners();
   }
