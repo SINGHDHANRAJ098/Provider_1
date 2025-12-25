@@ -36,9 +36,7 @@ class _TodosApiScreenState extends State<TodosApiScreen> {
       body: Consumer<TodosProvider>(
         builder: (context, value, child) {
           if (value.isLoading) {
-           return Center(
-             child: CircularProgressIndicator(),
-           );
+            return Center(child: CircularProgressIndicator());
           }
           final todos = value.todos;
           return ListView.builder(
@@ -53,7 +51,6 @@ class _TodosApiScreenState extends State<TodosApiScreen> {
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                   ),
-
                 ),
                 leading: CircleAvatar(child: Text(todo.id.toString())),
               );
