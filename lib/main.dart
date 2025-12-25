@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_statemanagement/provider/theme_provider.dart';
 import 'package:provider_statemanagement/provider/todo_provider.dart';
+import 'package:provider_statemanagement/provider/todos_provider.dart';
 import 'package:provider_statemanagement/provider/toggle_screen.dart';
+import 'package:provider_statemanagement/screens/todos_api_screen.dart';
 
 
 void main() {
@@ -11,6 +13,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => TodoProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_)=> TodosProvider())
       ],
       child: MyApp(),
     ),
@@ -28,7 +31,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: provider.theme,
-          home: const ToggleScreen(),
+          home: const TodosApiScreen(),
         );
       },
     );
