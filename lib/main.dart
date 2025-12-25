@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:provider_statemanagement/provider/theme_provider.dart';
 import 'package:provider_statemanagement/provider/todo_provider.dart';
 import 'package:provider_statemanagement/provider/toggle_screen.dart';
-import 'package:provider_statemanagement/todo_screen.dart';
+
 
 void main() {
   runApp(
@@ -12,7 +12,6 @@ void main() {
         ChangeNotifierProvider(create: (_) => TodoProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
-
       child: MyApp(),
     ),
   );
